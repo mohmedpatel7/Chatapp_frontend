@@ -65,7 +65,7 @@ const SlideDrawer = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:5000/api/User/searchUser/${search}`,
+        `https://chatapp-backend-3twn.onrender.com/api/User/searchUser/${search}`,
         {
           method: "GET",
           headers: {
@@ -99,7 +99,7 @@ const SlideDrawer = () => {
     try {
       setLoadingChat(true);
       const response = await fetch(
-        `http://localhost:5000/api/Chat/createChat`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/createChat`,
         {
           method: "POST",
           headers: {

@@ -26,7 +26,7 @@ export default function ChatPage() {
   } = useContext(ChatContext);
   const toast = useToast();
 
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://chatapp-backend-3twn.onrender.com";
   const socketRef = useRef(); // Use a ref to store the socket instance
   const selectedChatCompareRef = useRef(); // Ref to store the previous selected chat
 
@@ -95,7 +95,7 @@ export default function ChatPage() {
       if (selectedChatCompareRef.current !== chatId) {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/Message/fetchMessage/${chatId}`,
+            `https://chatapp-backend-3twn.onrender.com/api/Message/fetchMessage/${chatId}`,
             {
               method: "GET",
               headers: {

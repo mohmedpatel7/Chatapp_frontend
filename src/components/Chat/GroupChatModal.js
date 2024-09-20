@@ -41,7 +41,7 @@ export default function GroupChatModal({ children }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:5000/api/User/searchUser/${query}`,
+        `https://chatapp-backend-3twn.onrender.com/api/User/searchUser/${query}`,
         {
           method: "GET",
           headers: {
@@ -87,7 +87,7 @@ export default function GroupChatModal({ children }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:5000/api/Chat/createGroupChat`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/createGroupChat`,
         {
           method: "POST",
           headers: {

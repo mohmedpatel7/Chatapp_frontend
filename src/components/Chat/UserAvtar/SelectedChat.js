@@ -84,7 +84,7 @@ export default function SelectedChat({
       socketRef.current.emit("stop typing", selectedChat._id); // Emit stop typing when the message is sent
       try {
         const response = await fetch(
-          `http://localhost:5000/api/Message/doMessage`,
+          `https://chatapp-backend-3twn.onrender.com/api/Message/doMessage`,
           {
             method: "POST",
             headers: {

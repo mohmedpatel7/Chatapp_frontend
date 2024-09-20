@@ -20,7 +20,7 @@ export default function MessagesUi({ message }) {
 
   // Update local state when the `message` prop changes
   useEffect(() => {
-    setmsgDelete(message);  // Sync state with new messages when received
+    setmsgDelete(message); // Sync state with new messages when received
   }, [message]);
 
   // Scroll to the bottom when a new message is added
@@ -28,7 +28,7 @@ export default function MessagesUi({ message }) {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [msgDelete]);  // Trigger when `msgDelete` updates
+  }, [msgDelete]); // Trigger when `msgDelete` updates
 
   if (!userDetails || !userDetails.user) {
     return <div>Loading...</div>;
@@ -40,7 +40,7 @@ export default function MessagesUi({ message }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Message/deleteMessage/${msgId}`,
+        `https://chatapp-backend-3twn.onrender.com/api/Message/deleteMessage/${msgId}`,
         {
           method: "DELETE",
           headers: {
@@ -64,7 +64,9 @@ export default function MessagesUi({ message }) {
       const data = await response.json();
 
       // Update the state to remove the deleted message
-      setmsgDelete((prevMessages) => prevMessages.filter((msg) => msg._id !== msgId));
+      setmsgDelete((prevMessages) =>
+        prevMessages.filter((msg) => msg._id !== msgId)
+      );
 
       if (data) {
         toast({

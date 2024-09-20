@@ -42,7 +42,7 @@ export default function UpdateGroupModal({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Chat/renameGroup`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/renameGroup`,
         {
           method: "PUT",
           headers: {
@@ -98,7 +98,7 @@ export default function UpdateGroupModal({
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:5000/api/User/searchUser/${query}`,
+        `https://chatapp-backend-3twn.onrender.com/api/User/searchUser/${query}`,
         {
           method: "GET",
           headers: {
@@ -154,7 +154,7 @@ export default function UpdateGroupModal({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Chat/addUserToGroup`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/addUserToGroup`,
         {
           method: "PUT",
           headers: {
@@ -212,7 +212,7 @@ export default function UpdateGroupModal({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Chat/removeUser`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/removeUser`,
         {
           method: "PUT",
           headers: {

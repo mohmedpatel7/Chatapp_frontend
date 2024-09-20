@@ -33,7 +33,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
   const fetchChats = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Chat/fetchChats`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/fetchChats`,
         {
           method: "GET",
           headers: {
@@ -65,7 +65,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
   const deleteChat = async (chatId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/Chat/deleteChat/${chatId}`,
+        `https://chatapp-backend-3twn.onrender.com/api/Chat/deleteChat/${chatId}`,
         {
           method: "DELETE",
           headers: {

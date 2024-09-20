@@ -11,7 +11,7 @@ const Chat = (props) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/User/userDetails`,
+        `https://chatapp-backend-3twn.onrender.com/api/User/userDetails`,
         {
           method: "GET",
           headers: {
