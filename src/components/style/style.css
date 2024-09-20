@@ -1,0 +1,28 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("./bg4.jpg");
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar for Webkit browsers */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Internet Explorer/Edge */
+.no-scrollbar {
+    -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Firefox */
+.no-scrollbar {
+    scrollbar-width: none;
+}
