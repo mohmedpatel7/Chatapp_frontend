@@ -63,6 +63,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
   };
 
   const deleteChat = async (chatId) => {
+    window.confirm("Are you sure ?");
     try {
       const response = await fetch(
         `https://chatapp-backend-3twn.onrender.com/api/Chat/deleteChat/${chatId}`,
