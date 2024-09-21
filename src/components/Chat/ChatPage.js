@@ -1,4 +1,10 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, {
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { Box, useToast } from "@chakra-ui/react";
 import SlideDrawer from "./SlideDrawer";
 import MyChats from "./MyChats";
@@ -40,7 +46,7 @@ export default function ChatPage() {
     }
   }, [userDetails]);
 
-  // For the socket.io message receiving..
+  //For the socket.io message receiving..
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on("message received", (newMessage) => {
@@ -81,59 +87,52 @@ export default function ChatPage() {
     };
   }, []);
 
-  // Fetch messages whenever the selected chat changes
-  useEffect(() => {
-    const fetchMessages = async (chatId) => {
-      if (!chatId) return;
+  const fetchMessages = async (chatId) => {
+    if (!chatId) return;
 
-      // Use selectedChatCompareRef to compare previous and current selected chat
-      if (selectedChatCompareRef.current !== chatId) {
-        try {
-          const response = await fetch(
-            `https://chatapp-backend-3twn.onrender.com/api/Message/fetchMessage/${chatId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "user-token": localStorage.getItem("user_token"),
-              },
-            }
-          );
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error response:", errorData);
-            throw new Error("Failed to fetch messages");
+    // Use selectedChatCompareRef to compare previous and current selected chat
+    if (selectedChatCompareRef.current !== chatId) {
+      try {
+        const response = await fetch(
+          `https://chatapp-backend-3twn.onrender.com/api/Message/fetchMessage/${chatId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "user-token": localStorage.getItem("user_token"),
+            },
           }
+        );
 
-          const data = await response.json();
-          setfetchedData(true);
-          setMessage(data);
-
-          socketRef.current.emit("join chat", chatId); // Joining room..
-
-          // Store the current chatId in the ref after fetching messages
-          selectedChatCompareRef.current = chatId;
-        } catch (error) {
-          console.error("Error during fetchMessages:", error);
-          toast({
-            title: "Error",
-            description:
-              error.message ||
-              "Internal server error while fetching messages..! ",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-            position: "top",
-          });
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error response:", errorData);
+          throw new Error("Failed to fetch messages");
         }
-      }
-    };
 
-    if (selectedChat) {
-      fetchMessages(selectedChat._id);
+        const data = await response.json();
+        setfetchedData(true);
+        setMessage(data);
+
+        socketRef.current.emit("join chat", chatId); //Joining room..
+
+        // Store the current chatId in the ref after fetching messages
+        selectedChatCompareRef.current = chatId;
+      } catch (error) {
+        console.error("Error during fetchMessages:", error);
+        toast({
+          title: "Error",
+          description:
+            error.message ||
+            "Internal server error while fetching messages..! ",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+      }
     }
-  }, [selectedChat, toast]);
+  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -153,6 +152,7 @@ export default function ChatPage() {
           <MyChats
             fetchedData={fetchedData}
             setfetchedData={setfetchedData}
+            fetchMessages={fetchMessages}
             setSelectedChat={setSelectedChat}
           />
         </Box>
@@ -160,6 +160,7 @@ export default function ChatPage() {
         <ChatBox
           fetchedData={fetchedData}
           setfetchedData={setfetchedData}
+          fetchMessages={fetchMessages}
           selectedChat={selectedChat}
           setSelectedChat={setSelectedChat}
           message={message}
