@@ -150,7 +150,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
         p={3}
         bg="#F8F8F8"
         w="100%"
-        h="490px"
+        height={{ base: "100vh", md: "490px" }}
         borderRadius="lg"
         overflow="hidden"
         overflowY="scroll"

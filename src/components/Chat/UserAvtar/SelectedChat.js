@@ -147,10 +147,11 @@ export default function SelectedChat({
   return (
     <div>
       <Box
-        fontSize={{ base: "28px", md: "25px" }}
-        px={2}
+        fontSize={{ base: "24px", md: "28px" }} // Responsive font size
+        width={{ base: "100vw", md: "990px" }}
+        px={5}
         pb={3}
-        width="100%"
+        maxWidth="100vw"
         fontFamily="Work sans"
         display="flex"
         justifyContent="space-between"
@@ -174,8 +175,8 @@ export default function SelectedChat({
         flexDir="column"
         p={3}
         bg="#E8E8E8"
-        width={{ base: "410px", md: "990px" }}
-        h="75vh"
+        width={{ base: "100vw", md: "990px" }} // Responsive width
+        h={{ base: "100vh", md: "75vh" }} // Responsive height
         borderRadius="lg"
         overflow="hidden"
       >
@@ -206,7 +207,7 @@ export default function SelectedChat({
             onChange={handleTyping}
             value={newMessage}
             border="1px solid"
-            width={{ base: "100%", md: "990px" }}
+            width="100%"
             borderColor="GrayText"
           />
         </FormControl>
