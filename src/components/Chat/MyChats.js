@@ -117,6 +117,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
       bg="white"
       borderRadius="lg"
       borderWidth="1px"
+      height={{ base: "90vh" }}
     >
       <Box
         pb={3}
@@ -150,7 +151,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
         p={3}
         bg="#F8F8F8"
         w="100%"
-        height={{ base: "100vh", md: "490px" }}
+        height={{ base: "90vh", md: "490px" }}
         borderRadius="lg"
         overflow="hidden"
         overflowY="scroll"

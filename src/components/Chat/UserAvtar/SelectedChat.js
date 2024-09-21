@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   IconButton,
@@ -149,8 +149,8 @@ export default function SelectedChat({
       <Box
         fontSize={{ base: "24px", md: "28px" }} // Responsive font size
         width={{ base: "100vw", md: "990px" }}
-        px={5}
         pb={3}
+        px={4}
         maxWidth="100vw"
         fontFamily="Work sans"
         display="flex"
@@ -176,7 +176,7 @@ export default function SelectedChat({
         p={3}
         bg="#E8E8E8"
         width={{ base: "100vw", md: "990px" }} // Responsive width
-        h={{ base: "100vh", md: "75vh" }} // Responsive height
+        h={{ base: "81vh", md: "75vh" }} // Responsive height
         borderRadius="lg"
         overflow="hidden"
       >

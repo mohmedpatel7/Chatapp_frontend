@@ -25,7 +25,7 @@ const ChatBox = ({
           p={3}
           bg="white"
           width={{ base: "100%", md: "%" }}
-          height="570px"
+          height={{ base: "90vh" }}
           borderRadius="lg"
           borderWidth="1px"
         >
