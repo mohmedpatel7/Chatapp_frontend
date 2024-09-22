@@ -1,7 +1,6 @@
 import React, {
   useContext,
   useState,
-  useCallback,
   useEffect,
   useRef,
 } from "react";
@@ -85,7 +84,7 @@ export default function ChatPage() {
         socketRef.current.off("message received");
       }
     };
-  }, []);
+  }, [selectedChat]);
 
   const fetchMessages = async (chatId) => {
     if (!chatId) return;
