@@ -25,6 +25,9 @@ export default function UpdateGroupModal({
   setfetchedData,
   fetchMessages,
 }) {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedChat, setSelectedChat, userDetails } =
     useContext(ChatContext);
@@ -41,20 +44,17 @@ export default function UpdateGroupModal({
     if (!groupName) return;
 
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/renameGroup`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-          body: JSON.stringify({
-            chatId: selectedChat._id,
-            chatName: groupName,
-          }),
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/renameGroup`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+        body: JSON.stringify({
+          chatId: selectedChat._id,
+          chatName: groupName,
+        }),
+      });
 
       const data = await response.json();
 
@@ -97,16 +97,13 @@ export default function UpdateGroupModal({
 
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/User/searchUser/${query}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/User/searchUser/${query}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+      });
 
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -153,20 +150,17 @@ export default function UpdateGroupModal({
     }
 
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/addUserToGroup`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-          body: JSON.stringify({
-            chatId: selectedChat._id,
-            userId: userToAdd._id,
-          }),
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/addUserToGroup`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+        body: JSON.stringify({
+          chatId: selectedChat._id,
+          userId: userToAdd._id,
+        }),
+      });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
@@ -211,20 +205,17 @@ export default function UpdateGroupModal({
     }
 
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/removeUser`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-          body: JSON.stringify({
-            chatId: selectedChat._id,
-            userId: userToRemove._id,
-          }),
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/removeUser`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+        body: JSON.stringify({
+          chatId: selectedChat._id,
+          userId: userToRemove._id,
+        }),
+      });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);

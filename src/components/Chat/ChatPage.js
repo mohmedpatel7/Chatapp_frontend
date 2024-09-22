@@ -7,6 +7,9 @@ import ChatContext from "../../context/ChatContext";
 import io from "socket.io-client";
 
 export default function ChatPage() {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  // const URL = "http://localhost:5000";
+
   const [fetchedData, setfetchedData] = useState(false);
   const [message, setMessage] = useState([]);
   const [socketConnection, setsocketConnection] = useState(false);
@@ -20,6 +23,7 @@ export default function ChatPage() {
   } = useContext(ChatContext);
   const toast = useToast();
 
+  // const ENDPOINT = "http://localhost:5000";
   const ENDPOINT = "https://chatapp-backend-urn2.onrender.com";
   const socketRef = useRef(); // Use a ref to store the socket instance
   const selectedChatCompareRef = useRef(); // Ref to store the previous selected chat
@@ -88,7 +92,7 @@ export default function ChatPage() {
     if (selectedChatCompareRef.current !== chatId) {
       try {
         const response = await fetch(
-          `https://chatapp-backend-urn2.onrender.com/api/Message/fetchMessage/${chatId}`,
+          `${URL}/api/Message/fetchMessage/${chatId}`,
           {
             method: "GET",
             headers: {

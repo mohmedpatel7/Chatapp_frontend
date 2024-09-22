@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ChatContext from "./ChatContext"; // Import your existing ChatContext
 
 const Chat = (props) => {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedChat, setSelectedChat] = useState();
@@ -10,16 +13,13 @@ const Chat = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/User/userDetails`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/User/userDetails`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+      });
       if (!response.ok) {
         throw new Error(response.statusText);
       }

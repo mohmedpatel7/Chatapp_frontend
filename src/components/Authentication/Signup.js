@@ -12,6 +12,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -50,7 +53,7 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch(`https://chatapp-backend-urn2.onrender.com/api/User/signup`, {
+      const response = await fetch(`${URL}/api/User/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

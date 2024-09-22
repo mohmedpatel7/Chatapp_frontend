@@ -25,6 +25,9 @@ import LoadingScale from "./LoadingScale";
 import UserListItem from "./UserAvtar/UserListItem";
 
 const SlideDrawer = () => {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000"
+
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]); // Ensure searchResult is always an array
   const [loading, setLoading] = useState(false);
@@ -64,16 +67,13 @@ const SlideDrawer = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/User/searchUser/${search}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/User/searchUser/${search}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+      });
 
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -98,17 +98,14 @@ const SlideDrawer = () => {
   const accessChat = async (userId) => {
     try {
       setLoadingChat(true);
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/createChat`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-          body: JSON.stringify({ userId }),
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/createChat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+        body: JSON.stringify({ userId }),
+      });
       if (!response.ok) {
         throw new Error(response.statusText);
       }

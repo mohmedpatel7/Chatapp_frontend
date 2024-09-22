@@ -26,6 +26,9 @@ export default function SelectedChat({
   fetchedData, // Unused, consider removing if unnecessary
   setfetchedData, // Unused, consider removing if unnecessary
 }) {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const [newMessage, setNewMessage] = useState("");
   const [loggedUser, setLoggedUser] = useState("");
   const [socketConnection, setsocketConnection] = useState(false); // State for socket..
@@ -83,20 +86,17 @@ export default function SelectedChat({
     if (event.key === "Enter" && newMessage) {
       socketRef.current.emit("stop typing", selectedChat._id); // Emit stop typing when the message is sent
       try {
-        const response = await fetch(
-          `https://chatapp-backend-urn2.onrender.com/api/Message/doMessage`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "user-token": localStorage.getItem("user_token"),
-            },
-            body: JSON.stringify({
-              content: newMessage,
-              chatId: selectedChat._id,
-            }),
-          }
-        );
+        const response = await fetch(`${URL}/api/Message/doMessage`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "user-token": localStorage.getItem("user_token"),
+          },
+          body: JSON.stringify({
+            content: newMessage,
+            chatId: selectedChat._id,
+          }),
+        });
 
         if (!response.ok) {
           toast({

@@ -17,6 +17,9 @@ import { jwtDecode } from "jwt-decode";
 import UpdateGroupmodal from "./UserAvtar/UpdateGroupmodal";
 
 const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, chats, setChats } =
     useContext(ChatContext);
@@ -32,16 +35,13 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
 
   const fetchChats = async () => {
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/fetchChats`,
-        {
-          method: "GET",
-          headers: {
-            "user-token": localStorage.getItem("user_token"),
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/fetchChats`, {
+        method: "GET",
+        headers: {
+          "user-token": localStorage.getItem("user_token"),
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -63,18 +63,17 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
   };
 
   const deleteChat = async (chatId) => {
-    window.confirm("Are you sure ?");
+    let a = window.confirm("Are you sure ?");
+    if (!a) return;
+
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/deleteChat/${chatId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "user-token": localStorage.getItem("user_token"),
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/deleteChat/${chatId}`, {
+        method: "DELETE",
+        headers: {
+          "user-token": localStorage.getItem("user_token"),
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

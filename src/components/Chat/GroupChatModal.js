@@ -19,6 +19,9 @@ import UserListItem from "./UserAvtar/UserListItem";
 import UserBadge from "./UserAvtar/UserBadge";
 
 export default function GroupChatModal({ children }) {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [groupName, setGroupName] = useState("");
@@ -40,16 +43,13 @@ export default function GroupChatModal({ children }) {
 
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/User/searchUser/${query}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-        }
-      );
+      const response = await fetch(`${URL}/api/User/searchUser/${query}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+      });
 
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -86,20 +86,17 @@ export default function GroupChatModal({ children }) {
 
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Chat/createGroupChat`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "user-token": localStorage.getItem("user_token"),
-          },
-          body: JSON.stringify({
-            name: groupName,
-            users: JSON.stringify(selectedUsers.map((user) => user._id)),
-          }),
-        }
-      );
+      const response = await fetch(`${URL}/api/Chat/createGroupChat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "user-token": localStorage.getItem("user_token"),
+        },
+        body: JSON.stringify({
+          name: groupName,
+          users: JSON.stringify(selectedUsers.map((user) => user._id)),
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(response.statusText);

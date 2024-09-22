@@ -12,6 +12,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000";
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -34,16 +37,13 @@ export default function Signin() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/User/signin`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await fetch(`${URL}/api/User/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
       if (!response.ok) {
         toast({
           title: "Error",

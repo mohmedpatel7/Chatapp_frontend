@@ -10,6 +10,9 @@ import ChatContext from "../../../context/ChatContext";
 import { Avatar, Tooltip, useToast } from "@chakra-ui/react";
 
 export default function MessagesUi({ message }) {
+  const URL = "https://chatapp-backend-urn2.onrender.com";
+  //const URL = "http://localhost:5000"
+
   const { userDetails } = useContext(ChatContext);
   const messagesEndRef = useRef(null);
 
@@ -40,7 +43,7 @@ export default function MessagesUi({ message }) {
 
     try {
       const response = await fetch(
-        `https://chatapp-backend-urn2.onrender.com/api/Message/deleteMessage/${msgId}`,
+        `${URL}/api/Message/deleteMessage/${msgId}`,
         {
           method: "DELETE",
           headers: {
