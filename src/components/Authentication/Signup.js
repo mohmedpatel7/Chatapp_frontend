@@ -50,7 +50,7 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch(`https://chatapp-backend-3twn.onrender.com/api/User/signup`, {
+      const response = await fetch(`https://chatapp-backend-urn2.onrender.com/api/User/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

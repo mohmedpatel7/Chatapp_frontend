@@ -40,7 +40,7 @@ export default function MessagesUi({ message }) {
 
     try {
       const response = await fetch(
-        `https://chatapp-backend-3twn.onrender.com/api/Message/deleteMessage/${msgId}`,
+        `https://chatapp-backend-urn2.onrender.com/api/Message/deleteMessage/${msgId}`,
         {
           method: "DELETE",
           headers: {

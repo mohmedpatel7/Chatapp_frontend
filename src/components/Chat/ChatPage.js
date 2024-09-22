@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-} from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Box, useToast } from "@chakra-ui/react";
 import SlideDrawer from "./SlideDrawer";
 import MyChats from "./MyChats";
@@ -25,7 +20,7 @@ export default function ChatPage() {
   } = useContext(ChatContext);
   const toast = useToast();
 
-  const ENDPOINT = "https://chatapp-backend-3twn.onrender.com";
+  const ENDPOINT = "https://chatapp-backend-urn2.onrender.com";
   const socketRef = useRef(); // Use a ref to store the socket instance
   const selectedChatCompareRef = useRef(); // Ref to store the previous selected chat
 
@@ -49,7 +44,7 @@ export default function ChatPage() {
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on("message received", (newMessage) => {
-        console.log("New message received: ", newMessage);
+        // console.log("New message received: ", newMessage);
 
         if (
           !selectedChatCompareRef.current ||
@@ -93,7 +88,7 @@ export default function ChatPage() {
     if (selectedChatCompareRef.current !== chatId) {
       try {
         const response = await fetch(
-          `https://chatapp-backend-3twn.onrender.com/api/Message/fetchMessage/${chatId}`,
+          `https://chatapp-backend-urn2.onrender.com/api/Message/fetchMessage/${chatId}`,
           {
             method: "GET",
             headers: {
