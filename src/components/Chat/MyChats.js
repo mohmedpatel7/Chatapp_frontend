@@ -21,6 +21,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
   //const URL = "http://localhost:5000";
 
   const [loggedUser, setLoggedUser] = useState();
+  const [openedChats, setOpenedChats] = useState([]); // Track opened chats
   const { selectedChat, setSelectedChat, chats, setChats } =
     useContext(ChatContext);
   const toast = useToast();
@@ -103,6 +104,16 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
     }
   };
 
+  const handleClickChat = (chat) => {
+    setSelectedChat(chat);
+    fetchMessages(chat._id);
+
+    // Mark chat as opened (only on first open)
+    if (!openedChats.includes(chat._id)) {
+      setOpenedChats([...openedChats, chat._id]);
+    }
+  };
+
   useEffect(() => {
     fetchChats();
   }, [fetchedData]);
@@ -146,7 +157,7 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
 
       <Box
         display="flex"
-        flexDir="column"
+        flexDirection="column"
         p={3}
         bg="#F8F8F8"
         w="100%"
@@ -169,12 +180,8 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
                 chat._id && (
                   <Box
                     display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    onClick={() => {
-                      setSelectedChat(chat);
-                      fetchMessages(chat._id); // Ensure this is also correct
-                    }}
+                    flexDirection="column"
+                    onClick={() => handleClickChat(chat)}
                     cursor="pointer"
                     bg={selectedChat === chat ? "#25D366" : "#eee"}
                     color={selectedChat === chat ? "white" : "black"}
@@ -183,35 +190,57 @@ const MyChats = ({ fetchedData, setfetchedData, fetchMessages }) => {
                     borderRadius="lg"
                     key={chat._id}
                   >
-                    <Text flex="1">
-                      {!chat.isGroupChat && chat.users
-                        ? getSender(loggedUser, chat.users) // Correctly get the opposite user's name
-                        : chat.chatName}
-                    </Text>
-                    <Box display="flex" alignItems="center">
-                      <IconButton
-                        aria-label="Delete chat"
-                        icon={<DeleteIcon />}
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent triggering the onClick of the parent Box
-                          deleteChat(chat._id);
-                        }}
-                        size="sm"
-                        colorScheme="red"
-                        mr={2} // Space between delete button and profile
-                      />
-                      {!chat.isGroupChat && chat.users ? (
-                        <OtherUserProfile
-                          user={getSenderFull(loggedUser, chat.users)}
+                    {/* Row for Chat Name, Delete Button, and Profile Button */}
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text flex="1">
+                        {!chat.isGroupChat && chat.users
+                          ? getSender(loggedUser, chat.users) // Correctly get the opposite user's name
+                          : chat.chatName}
+                      </Text>
+                      <Box display="flex" alignItems="center">
+                        <IconButton
+                          aria-label="Delete chat"
+                          icon={<DeleteIcon />}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent triggering the onClick of the parent Box
+                            deleteChat(chat._id);
+                          }}
+                          size="sm"
+                          colorScheme="red"
+                          mr={2} // Space between delete button and profile
                         />
-                      ) : (
-                        <UpdateGroupmodal
-                          fetchedData={fetchedData}
-                          setfetchedData={setfetchedData}
-                          fetchMessages={fetchMessages}
-                        />
-                      )}
+                        {!chat.isGroupChat && chat.users ? (
+                          <OtherUserProfile
+                            user={getSenderFull(loggedUser, chat.users)}
+                          />
+                        ) : (
+                          <UpdateGroupmodal
+                            fetchedData={fetchedData}
+                            setfetchedData={setfetchedData}
+                            fetchMessages={fetchMessages}
+                          />
+                        )}
+                      </Box>
                     </Box>
+
+                    {/* Display latest message only if chat is not selected and it's the first time viewing */}
+                    {!openedChats.includes(chat._id) && chat.latestMessage && (
+                      <Box>
+                        <Text
+                          noOfLines={1}
+                          fontSize="small"
+                          color="black"
+                          fontFamily="sans-serif"
+                        >
+                          <b>{chat.latestMessage.sender.name}:</b>
+                          {chat.latestMessage.content}
+                        </Text>
+                      </Box>
+                    )}
                   </Box>
                 )
             )}

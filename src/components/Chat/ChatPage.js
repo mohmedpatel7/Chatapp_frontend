@@ -152,6 +152,7 @@ export default function ChatPage() {
             setfetchedData={setfetchedData}
             fetchMessages={fetchMessages}
             setSelectedChat={setSelectedChat}
+            message={message}
           />
         </Box>
 
